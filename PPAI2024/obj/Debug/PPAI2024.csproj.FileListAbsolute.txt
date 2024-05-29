@@ -1,0 +1,12 @@
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\bin\Debug\PPAI2024.exe.config
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\bin\Debug\PPAI2024.exe
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\bin\Debug\PPAI2024.pdb
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\obj\Debug\PPAI2024.csproj.AssemblyReference.cache
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\obj\Debug\PPAI2024.csproj.SuggestedBindingRedirects.cache
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\obj\Debug\PPAI2024.Properties.Resources.resources
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\obj\Debug\PPAI2024.csproj.GenerateResource.cache
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\obj\Debug\PPAI2024.csproj.CoreCompileInputs.cache
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\obj\Debug\PPAI2024.exe
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\obj\Debug\PPAI2024.pdb
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\obj\Debug\PPAI2024.FormImportaciones.resources
+C:\Users\Equipo\Documents\PPAI2024\PPAI2024\PPAI2024\obj\Debug\PPAI2024.InterfazImportadorBodega.resources
