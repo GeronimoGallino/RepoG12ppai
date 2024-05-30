@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPAI2024.Entidades
 {
-    internal class Siguiendo
+    public class Siguiendo
     {
         //atributos
         public DateTime fechaFin;

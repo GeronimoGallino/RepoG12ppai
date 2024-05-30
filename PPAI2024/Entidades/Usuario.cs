@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPAI2024.Entidades
 {
-    internal class Usuario
+    public class Usuario
     {
         //atributos
         public string contraseña;

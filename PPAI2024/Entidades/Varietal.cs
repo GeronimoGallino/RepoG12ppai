@@ -16,7 +16,7 @@ namespace PPAI2024.Entidades
         //Atributos por referencia
         public TipoUva tipoUva;
 
-        Varietal(string descrip, int porComp, TipoUva tU)
+        public Varietal(string descrip, int porComp, TipoUva tU)
         {
             descripcion = descrip;
             porcentajeComposicion = porComp;

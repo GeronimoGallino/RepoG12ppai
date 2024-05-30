@@ -80,7 +80,7 @@ namespace PPAI2024.Entidades
                 {
                     vino.PrecioARS = vinoActualizado.PrecioARS;
                     vino.NotaDeCataBodega = vinoActualizado.NotaDeCataBodega;
-                    vino.FechaActualizacion = vinoActualizado.FechaActualizacion;
+                    vino.FechaActualizacion = vinoActualizado.FechaActualizacion; //el vino actualizado viene con la fecha del dia que llamamos a la API
                     break;
                 }
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPAI2024.Entidades
 {
-    internal class Enofilo
+    public class Enofilo
     {
         //atributos
         public string apellido;

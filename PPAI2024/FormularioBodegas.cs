@@ -31,9 +31,80 @@ namespace PPAI2024
         {
             InitializeComponent();
             //Filtramos las bodegas que deben actualizarse 
-            List<Bodega> bodegasParaActualizar = gestor.BuscarBodegasParaActualizar(listaDeBodegas);
+
+            //List<Bodega> bodegasParaActualizar = gestor.BuscarBodegasParaActualizar(listaDeBodegas);
+
             //mostramos las bodegas que deben actualizarse
-            MostrarBodegasParaActualizar(bodegasParaActualizar);
+
+            //MostrarBodegasParaActualizar(bodegasParaActualizar);
+
+
+
+
+            // Crear tipos de uva
+            TipoUva tipoUvaMalbec = new TipoUva("Una de las uvas más representativas de Argentina", "Malbec");
+            TipoUva tipoUvaCabernetSauvignon = new TipoUva("Una variedad clásica", "Cabernet Sauvignon");
+            TipoUva tipoUvaChardonnay = new TipoUva("Uva blanca muy popular", "Chardonnay");
+
+            // Crear varietales
+            Varietal varietalMalbec = new Varietal("Varietal Malbec", 100, tipoUvaMalbec);
+            Varietal varietalCabernetSauvignon = new Varietal("Varietal Cabernet Sauvignon", 100, tipoUvaCabernetSauvignon);
+            Varietal varietalChardonnay = new Varietal("Varietal Chardonnay", 100, tipoUvaChardonnay);
+
+            // Crear maridajes
+            Maridaje maridajeCarne = new Maridaje("Carne", "Ideal para carnes rojas", tipoUvaMalbec);
+            Maridaje maridajeQueso = new Maridaje("Queso", "Combina bien con quesos fuertes", tipoUvaCabernetSauvignon);
+            Maridaje maridajePescado = new Maridaje("Pescado", "Perfecto para pescados y mariscos", tipoUvaChardonnay);
+
+            // Crear la bodega Crespo
+            Bodega bodegaCrespo = new Bodega("Crespo", "Historia de la bodega Crespo", "Una descripción de la bodega Crespo", 30, DateTime.Now, new List<Vino>());
+            // Crear lista de vinos
+            List<Vino> listaVinosCrespo = new List<Vino>
+                {
+                    new Vino(new List<Maridaje> { maridajeCarne }, bodegaCrespo, "2018", "2024-05-28", "Malbec Reserva", 1500, 90, new List<Varietal> { varietalMalbec }),
+                    new Vino(new List<Maridaje> { maridajeQueso }, bodegaCrespo, "2019", "2024-05-28", "Cabernet Sauvignon Gran Reserva", 2000, 92, new List<Varietal> { varietalCabernetSauvignon }),
+                    new Vino(new List<Maridaje> { maridajePescado }, bodegaCrespo, "2020", "2024-05-28", "Chardonnay", 1200, 88, new List<Varietal> { varietalChardonnay })
+                };
+            gestor.MostrarResumenVinosImportados(listaVinosCrespo);
+            //            // Crear la lista de vinos
+            //           List<Vino> listaDeVinosCrespo = new List<Vino>
+            //{
+            //    new Vino(
+            //                new List<Maridaje> { maridajeCarne, maridajeQueso },
+            //                bodegaCrespo,
+            //                "2018",
+            //                "2024-01-01",
+            //                "Crespo Malbec",
+            //                750,
+            //                95,
+            //                new List<Varietal> { varietalMalbec }
+            //            ),
+            //    new Vino(
+            //                new List<Maridaje> { maridajeQueso, maridajePescado },
+            //                bodegaCrespo,
+            //                "2019",
+            //                "2024-02-01",
+            //                "Crespo Cabernet Sauvignon",
+            //                820,
+            //                92,
+            //                new List<Varietal> { varietalCabernetSauvignon }
+            //            ),
+            //    new Vino(
+            //                new List<Maridaje> { maridajePescado },
+            //                bodegaCrespo,
+            //                "2020",
+            //                "2024-03-01",
+            //                "Crespo Chardonnay",
+            //                680,
+            //                90,
+            //                new List<Varietal> { varietalChardonnay }
+            //            )
+            //};
+
+            //            // Asignar la lista de vinos a la bodega Crespo
+            //            bodegaCrespo.Vino = listaDeVinosCrespo;
+
+            gestor.MostrarResumenVinosImportados(listaVinosCrespo);
         }
 
 
@@ -105,7 +176,7 @@ namespace PPAI2024
                     if (dialogResult == DialogResult.OK)
                     {
                         //ACA OBTENEMOS LAS ACTUALIZACIONES DE LA BODEGA SELECCIONADA 
-                        List<Vino> listaActualizacionesVinos = API.ObtenerActualizacionesBodega(bodegaSeleccionada);
+                        List<Vino> listaActualizacionesVinos =  API.ObtenerActualizacionesBodega(bodegaSeleccionada);
                         
                         // ACA DE LA LISTA listaActualizacionesVinos creamos dos listas, una con los vinos a modificar y otra con los vinos paara crear
                         var (vinosParaActualizar, vinosParaCrear) = gestor.DeterminarVinosAActualizar(bodegaSeleccionada, listaActualizacionesVinos);
@@ -118,6 +189,7 @@ namespace PPAI2024
                         gestor.ActualizarOCrearVinos(vinosParaActualizar, vinosParaCrear, bodegaSeleccionada);
 
                         //Este metodo es para mostrar los vinos actualizados y creados, usamos como parametro listaActualizacionesVinos ya que ahi estan todos juntos
+                       // gestor.MostrarResumenVinosImportados(listaActualizacionesVinos);
 
                     }
                     else

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PPAI2024
 {
@@ -70,9 +71,41 @@ namespace PPAI2024
         {
             foreach (var vino in vinosParaCrear)
             {
+
+
+
+
+
                 // Aquí puedes agregar el vino a la bodega.
                 bodegaSeleccionada.Vino.Add(vino);
             }
+        }
+        public void MostrarResumenVinosImportados(List<Vino> vinos)
+        {
+            if (vinos == null || vinos.Count == 0)
+            {
+                MessageBox.Show("No hay vinos para mostrar.");
+                return;
+            }
+
+            // Asumimos que todos los vinos en la lista pertenecen a la misma bodega pq la lista viene de la API de una bodega
+            Bodega bodega = vinos[0].Bodega;
+            string mensaje = $"Bodega: {bodega.Nombre}\n";
+
+            foreach (var vino in vinos)
+            {
+                string maridajes = string.Join(", ", vino.Maridaje.ConvertAll(m => $"{m.Nombre} ({m.Descripcion})"));
+                string varietales = string.Join(", ", vino.Varietal.ConvertAll(v => $"{v.TipoUva.Nombre} ({v.PorcentajeComposicion}%)"));
+
+                mensaje += $"Nombre: {vino.Nombre}\n" +
+                           $"Añada: {vino.Añada}\n" +
+                           $"Nota de Cata: {vino.NotaDeCataBodega}\n" +
+                           $"Precio: {vino.PrecioARS} ARS\n" +
+                           $"Maridajes: {maridajes}\n" +
+                           $"Varietales: {varietales}\n\n";
+            }
+
+            MessageBox.Show(mensaje, "Resumen de Vinos Importados");
         }
 
 
