@@ -26,5 +26,16 @@ namespace PPAI2024.Entidades
         public string Nombre { get {  return nombre; } set {  nombre = value; } }
         public TipoUva TipoUva { get { return tipoUva; } set { tipoUva = value; } }
 
+
+        public bool SosMaridaje(string nombreMaridaje)
+        {
+            // Comparamos el nombre del maridaje con el nombre pasado por parámetro
+            return this.Nombre == nombreMaridaje;
+        }
+
+
+
+
+
     }
 }

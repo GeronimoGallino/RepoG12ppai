@@ -22,6 +22,12 @@ namespace PPAI2024.Entidades
         //propiedades get y set
         public string Descripcion { get { return descripcion; } set { descripcion = value; } }
         public string Nombre { get { return nombre; } set { nombre = value; } }
-        
+
+        public bool SosTipoUva(string nombreTipoUva)
+        {
+            // Comparamos el nombre del tipo de uva con el nombre pasado por parámetro
+            return this.Nombre == nombreTipoUva;
+        }
+
     }
 }
