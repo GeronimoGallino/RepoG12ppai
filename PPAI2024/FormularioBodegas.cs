@@ -109,12 +109,15 @@ namespace PPAI2024
                         
                         // ACA DE LA LISTA listaActualizacionesVinos creamos dos listas, una con los vinos a modificar y otra con los vinos paara crear
                         var (vinosParaActualizar, vinosParaCrear) = gestor.DeterminarVinosAActualizar(bodegaSeleccionada, listaActualizacionesVinos);
-                        
+
                         //ACA EMPEZARIA EL PASO 6 DEL CU
                         //Actualizar las novedades importadas del sistema de bodega
                         //y muestra un resumen de los vinos creados y/o actualizados 
-                        
-                        
+
+                        //aca actualizamos y creamos los vinos pero no mostramos los datos modificados 
+                        gestor.ActualizarOCrearVinos(vinosParaActualizar, vinosParaCrear, bodegaSeleccionada);
+
+                        //Este metodo es para mostrar los vinos actualizados y creados, usamos como parametro listaActualizacionesVinos ya que ahi estan todos juntos
 
                     }
                     else

@@ -46,6 +46,37 @@ namespace PPAI2024
 
             return (vinosParaActualizar, vinosParaCrear);
         }
+
+
+
+        // eSTOS 3 METODOS EN SUSPENSO
+        // ESTO SERIA LO QUE INVOCA AL ALT
+        public void ActualizarOCrearVinos(List<Vino> vinosParaActualizar, List<Vino> vinosParaCrear, Bodega bodegaSeleccionada)
+        {
+            ActualizarCaracteristicasVinosExistentes(vinosParaActualizar, bodegaSeleccionada);
+            CrearNuevosVinos(vinosParaCrear, bodegaSeleccionada);
+        }
+
+
+        private void ActualizarCaracteristicasVinosExistentes(List<Vino> vinosParaActualizar, Bodega bodegaSeleccionada)
+        {
+            foreach (var vino in vinosParaActualizar)
+            {
+                bodegaSeleccionada.ActualizarDatosVino(vino);
+            }
+        }
+
+        private void CrearNuevosVinos(List<Vino> vinosParaCrear, Bodega bodegaSeleccionada)
+        {
+            foreach (var vino in vinosParaCrear)
+            {
+                // Aquí puedes agregar el vino a la bodega.
+                bodegaSeleccionada.Vino.Add(vino);
+            }
+        }
+
+
+
     }
 
 }

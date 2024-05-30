@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PPAI2024.Entidades
 {
-    internal class TipoUva
+    public class TipoUva
     {
         //atributos
         public string descripcion;

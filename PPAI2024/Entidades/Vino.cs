@@ -18,10 +18,10 @@ namespace PPAI2024.Entidades
         //atributos por referencia 
         private List<Maridaje> maridaje; 
         private Bodega bodega;
-
+        private List<Varietal> varietal;
 
         //metodo constructor
-        public Vino(List<Maridaje> mari, Bodega bode, string aña, string fecha, string nom, int precio, int nota)
+        public Vino(List<Maridaje> mari, Bodega bode, string aña, string fecha, string nom, int precio, int nota, List<Varietal> vari)
         {
             
             añada = aña;
@@ -31,6 +31,7 @@ namespace PPAI2024.Entidades
             notaDeCataBodega = nota;
             maridaje = mari;
             bodega = bode;
+            varietal = vari;
         }
 
         //propiedades get y set
@@ -41,7 +42,7 @@ namespace PPAI2024.Entidades
         public int NotaDeCataBodega { get {  return notaDeCataBodega; } set { notaDeCataBodega = value ; } }
         public List<Maridaje> Maridaje { get {  return maridaje; } set {  maridaje = value; } }
         public Bodega Bodega { get { return bodega; } set { bodega = value; } }
-
+        public List<Varietal> Varietal { get {  return varietal; } set {  varietal = value; } }
         public bool sosEsteVino(Vino otroVino)
         {
             return this.Nombre == otroVino.Nombre && this.Añada == otroVino.Añada;

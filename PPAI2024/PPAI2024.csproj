@@ -52,6 +52,7 @@
     <Compile Include="Entidades\Siguiendo.cs" />
     <Compile Include="Entidades\TipoUva.cs" />
     <Compile Include="Entidades\Usuario.cs" />
+    <Compile Include="Entidades\Varietal.cs" />
     <Compile Include="Entidades\Vino.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

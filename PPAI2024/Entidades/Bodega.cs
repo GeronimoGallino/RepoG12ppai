@@ -68,5 +68,22 @@ namespace PPAI2024.Entidades
         {
             return Vino.Any(v => v.sosEsteVino(vino));
         }
+
+
+        // METODO EN SUSPENSO
+        public void ActualizarDatosVino(Vino vinoActualizado)
+        {
+            //Recorremos los vinos de Una bodeg
+            foreach (var vino in vino)
+            {
+                if (vino.sosEsteVino(vinoActualizado))
+                {
+                    vino.PrecioARS = vinoActualizado.PrecioARS;
+                    vino.NotaDeCataBodega = vinoActualizado.NotaDeCataBodega;
+                    vino.FechaActualizacion = vinoActualizado.FechaActualizacion;
+                    break;
+                }
+            }
+        }
     }
 }
