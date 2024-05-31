@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,115 +17,41 @@ namespace PPAI2024
     {
         GestorImportarBodega gestor = new GestorImportarBodega();
         InterfazAPIBodega API = new InterfazAPIBodega();
-        //List<Vino> vinoParaActualizar = new List<Vino>();
-        //List<Vino> vinoParaCrear = new List<Vino>();
+      
+        private static List<Vino> listaConUnVino = new List<Vino>()
+            {
+                
+                new Vino(new List<Maridaje> { new Maridaje("Carnes Rojas", "Ideal para carnes rojas a la parrilla", new TipoUva("Malbec", "Uva tinta")) }, new Bodega("Santa Julia", "H", "Vino blanco", 2, new DateTime(2024, 1, 27), new List<Vino>()), "2018", "2024-01-13", "Malbec Reserva", 250, 1, new List<Varietal> { new Varietal("Malbec", 100, new TipoUva("Malbec", "Uva tinta")) })
+            };
+
+
         //Lista de Objetos Bodega para probar el metodo, la lista tiene que ser de las bodegas que tienen actualizacion disponible
         private static List<Bodega> listaDeBodegas = new List<Bodega>
         {
-        new Bodega("Santa Julia", "H", "Vino blanco", 60, new DateTime(2024, 1, 27), new List<Vino>()),
-        new Bodega("Toro", "H", "Vino tinto", 40,new DateTime(2024, 2, 27), new List<Vino>()),
-        new Bodega("El vino de la mona", "H", "Violeta", 30,new DateTime(2024, 3, 27), new List < Vino >()),
-        new Bodega("Viña de balbo", "H", "Vino con cuerpo", 120,new DateTime(2024, 4, 27), new List < Vino >()),
-        new Bodega("Benjamin", "H", "Vino dulce", 30,new DateTime(2024, 5, 27), new List < Vino >())
+        new Bodega("Santa Julia", "H", "Vino blanco", 2, new DateTime(2024, 1, 27),listaConUnVino),
+        new Bodega("Toro", "H", "Vino tinto", 4,new DateTime(2024, 2, 27), new List<Vino>()),
+        new Bodega("El vino de la mona", "H", "Violeta", 3,new DateTime(2024, 3, 27), new List < Vino >()),
+        new Bodega("Viña de balbo", "H", "Vino con cuerpo", 1,new DateTime(2024, 4, 27), new List < Vino >()),
+        new Bodega("Benjamin", "H", "Vino dulce", 1,new DateTime(2024, 5, 27), new List < Vino >())
         };
+
+
         public InterfazImportadorBodega()
         {
             InitializeComponent();
+
+            //MostrarLosVinosDeUnaBodega(listaDeBodegas);
+            
+
             //Filtramos las bodegas que deben actualizarse 
 
-            //List<Bodega> bodegasParaActualizar = gestor.BuscarBodegasParaActualizar(listaDeBodegas);
+            List<Bodega> bodegasParaActualizar = gestor.BuscarBodegasParaActualizar(listaDeBodegas);
 
             //mostramos las bodegas que deben actualizarse
 
-            //MostrarBodegasParaActualizar(bodegasParaActualizar);
-
-
-
-
-            // Crear tipos de uva
-            TipoUva tipoUvaMalbec = new TipoUva("Una de las uvas más representativas de Argentina", "Malbec");
-            TipoUva tipoUvaCabernetSauvignon = new TipoUva("Una variedad clásica", "Cabernet Sauvignon");
-            TipoUva tipoUvaChardonnay = new TipoUva("Uva blanca muy popular", "Chardonnay");
-
-            // Crear varietales
-            Varietal varietalMalbec = new Varietal("Varietal Malbec", 100, tipoUvaMalbec);
-            Varietal varietalCabernetSauvignon = new Varietal("Varietal Cabernet Sauvignon", 100, tipoUvaCabernetSauvignon);
-            Varietal varietalChardonnay = new Varietal("Varietal Chardonnay", 100, tipoUvaChardonnay);
-
-            // Crear maridajes
-            Maridaje maridajeCarne = new Maridaje("Carne", "Ideal para carnes rojas", tipoUvaMalbec);
-            Maridaje maridajeQueso = new Maridaje("Queso", "Combina bien con quesos fuertes", tipoUvaCabernetSauvignon);
-            Maridaje maridajePescado = new Maridaje("Pescado", "Perfecto para pescados y mariscos", tipoUvaChardonnay);
-
-            // Crear la bodega Crespo
-            Bodega bodegaCrespo = new Bodega("Crespo", "Historia de la bodega Crespo", "Una descripción de la bodega Crespo", 30, DateTime.Now, new List<Vino>());
-            // Crear lista de vinos
-            List<Vino> listaVinosCrespo = new List<Vino>
-                {
-                    new Vino(new List<Maridaje> { maridajeCarne }, bodegaCrespo, "2018", "2024-05-28", "Malbec Reserva", 1500, 90, new List<Varietal> { varietalMalbec }),
-                    new Vino(new List<Maridaje> { maridajeQueso }, bodegaCrespo, "2019", "2024-05-28", "Cabernet Sauvignon Gran Reserva", 2000, 92, new List<Varietal> { varietalCabernetSauvignon }),
-                    new Vino(new List<Maridaje> { maridajePescado }, bodegaCrespo, "2020", "2024-05-28", "Chardonnay", 1200, 88, new List<Varietal> { varietalChardonnay })
-                };
-            gestor.MostrarResumenVinosImportados(listaVinosCrespo);
-            //            // Crear la lista de vinos
-            //           List<Vino> listaDeVinosCrespo = new List<Vino>
-            //{
-            //    new Vino(
-            //                new List<Maridaje> { maridajeCarne, maridajeQueso },
-            //                bodegaCrespo,
-            //                "2018",
-            //                "2024-01-01",
-            //                "Crespo Malbec",
-            //                750,
-            //                95,
-            //                new List<Varietal> { varietalMalbec }
-            //            ),
-            //    new Vino(
-            //                new List<Maridaje> { maridajeQueso, maridajePescado },
-            //                bodegaCrespo,
-            //                "2019",
-            //                "2024-02-01",
-            //                "Crespo Cabernet Sauvignon",
-            //                820,
-            //                92,
-            //                new List<Varietal> { varietalCabernetSauvignon }
-            //            ),
-            //    new Vino(
-            //                new List<Maridaje> { maridajePescado },
-            //                bodegaCrespo,
-            //                "2020",
-            //                "2024-03-01",
-            //                "Crespo Chardonnay",
-            //                680,
-            //                90,
-            //                new List<Varietal> { varietalChardonnay }
-            //            )
-            //};
-
-            //            // Asignar la lista de vinos a la bodega Crespo
-            //            bodegaCrespo.Vino = listaDeVinosCrespo;
-
-            gestor.MostrarResumenVinosImportados(listaVinosCrespo);
+            MostrarBodegasParaActualizar(bodegasParaActualizar);
+          
         }
-
-
-
-        // este metodo era para mostrar una sola bodega
-        //public void MostrarBodegaParaActualizar(Bodega bod)
-        //{
-
-
-        //    DataGridViewRow fila = new DataGridViewRow();
-
-        //    DataGridViewTextBoxCell celdaNombre = new DataGridViewTextBoxCell();
-
-        //    celdaNombre.Value = bod.Nombre;
-
-        //    fila.Cells.Add(celdaNombre);
-
-        //    grillaBodegas.Rows.Add(fila);
-        //}
-
 
         public void MostrarBodegasParaActualizar(List<Bodega> bodegas)
         {
@@ -189,11 +116,7 @@ namespace PPAI2024
                         gestor.ActualizarOCrearVinos(vinosParaActualizar, vinosParaCrear, bodegaSeleccionada);
 
                         //Este metodo es para mostrar los vinos actualizados y creados, usamos como parametro listaActualizacionesVinos ya que ahi estan todos juntos
-                       // gestor.MostrarResumenVinosImportados(listaActualizacionesVinos);
-
-
-
-                        
+                        MostrarResumenVinosImportados(listaActualizacionesVinos);
 
                     }
                     else
@@ -204,6 +127,60 @@ namespace PPAI2024
                 }
             }
         }
+
+
+
+        public void MostrarResumenVinosImportados(List<Vino> vinos)
+        {
+            if (vinos == null || vinos.Count == 0)
+            {
+                MessageBox.Show("No hay vinos para mostrar.");
+                return;
+            }
+
+            // Asumimos que todos los vinos en la lista pertenecen a la misma bodega pq la lista viene de la API de una bodega
+            Bodega bodega = vinos[0].Bodega;
+            string mensaje = $"Bodega: {bodega.Nombre}\n";
+
+            foreach (var vino in vinos)
+            {
+                string maridajes = string.Join(", ", vino.Maridaje.ConvertAll(m => $"{m.Nombre} ({m.Descripcion})"));
+                string varietales = string.Join(", ", vino.Varietal.ConvertAll(v => $"{v.TipoUva.Nombre} ({v.PorcentajeComposicion}%)"));
+
+                mensaje += $"Nombre: {vino.Nombre}\n" +
+                           $"Añada: {vino.Añada}\n" +
+                           $"Nota de Cata: {vino.NotaDeCataBodega}\n" +
+                           $"Precio: {vino.PrecioARS} ARS\n" +
+                           $"Maridajes: {maridajes}\n" +
+                           $"Varietales: {varietales}\n\n";
+            }
+
+            MessageBox.Show(mensaje, "Resumen de Vinos Importados");
+        }
+
+
+        public void MostrarLosVinosDeUnaBodega(List<Bodega> listaBodegas)
+        {
+            foreach (var bodega in listaBodegas)
+            {
+                StringBuilder mensaje = new StringBuilder();
+                mensaje.AppendLine($"Bodega: {bodega.Nombre}");
+                if (bodega.Vino.Count == 0)
+                {
+                    mensaje.AppendLine("La bodega no tiene vinos.");
+                }
+                else
+                {
+                    foreach (var vino in bodega.Vino)
+                    {
+                        mensaje.AppendLine($"Nombre del vino: {vino.Nombre}, Precio: {vino.PrecioARS}, Nota de Cata: {vino.NotaDeCataBodega}");
+                    }
+                }
+                mensaje.AppendLine(); // Línea en blanco para separar las bodegas
+                MessageBox.Show(mensaje.ToString(), "Vinos de la Bodega");
+            }
+        }
+
 
     }
 }

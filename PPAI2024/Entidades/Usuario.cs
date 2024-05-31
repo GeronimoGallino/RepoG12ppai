@@ -26,7 +26,7 @@ namespace PPAI2024.Entidades
         public string Nombre { get { return nombre; } set {  nombre = value; } }    
         public bool Premium { get { return premium; } set { premium = value; } }
 
-       
+      
 
     }
 }

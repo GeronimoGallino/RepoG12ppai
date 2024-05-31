@@ -12,7 +12,7 @@ namespace PPAI2024.Gestor_e_interfaces
         public List<Vino> ObtenerActualizacionesBodega(Bodega bodega)
         {
             // Simulamos la obtención de datos de la API
-            // Supongamos que la API devuelve una lista de vinos actualizados
+            // Supongamos que la API devuelve una lista de vinos  a actualizar
             DateTime fechaActual = DateTime.Now;
             List<Vino> actualizaciones = new List<Vino>
             
@@ -23,8 +23,8 @@ namespace PPAI2024.Gestor_e_interfaces
             "2018",
            fechaActual.ToString("yyyy-MM-dd"),
             "Malbec Reserva",
-            250, // Precio
-            90,  // Nota de Cata
+            1300, // Precio
+            95,  // Nota de Cata
             new List<Varietal> { new Varietal("Malbec", 100, new TipoUva("Malbec", "Uva tinta")) }
         ),
         new Vino(

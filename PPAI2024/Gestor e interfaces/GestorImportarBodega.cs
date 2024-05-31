@@ -94,53 +94,10 @@ namespace PPAI2024
             {
                 bodegaSeleccionada.ActualizarDatosVino(vino);
             }
+             //MostrarVinosACtualizadosDeUnaBodega(bodegaSeleccionada);
         }
 
-        //private void CrearNuevosVinos(List<Vino> vinosParaCrear, Bodega bodegaSeleccionada)
-        //{
-        //    foreach (var vino in vinosParaCrear)
-        //    {
-
-
-
-
-
-        //        // Aquí puedes agregar el vino a la bodega.
-        //        bodegaSeleccionada.Vino.Add(vino);
-        //    }
-        //}
-
-
-
-
-
-        public void MostrarResumenVinosImportados(List<Vino> vinos)
-        {
-            if (vinos == null || vinos.Count == 0)
-            {
-                MessageBox.Show("No hay vinos para mostrar.");
-                return;
-            }
-
-            // Asumimos que todos los vinos en la lista pertenecen a la misma bodega pq la lista viene de la API de una bodega
-            Bodega bodega = vinos[0].Bodega;
-            string mensaje = $"Bodega: {bodega.Nombre}\n";
-
-            foreach (var vino in vinos)
-            {
-                string maridajes = string.Join(", ", vino.Maridaje.ConvertAll(m => $"{m.Nombre} ({m.Descripcion})"));
-                string varietales = string.Join(", ", vino.Varietal.ConvertAll(v => $"{v.TipoUva.Nombre} ({v.PorcentajeComposicion}%)"));
-
-                mensaje += $"Nombre: {vino.Nombre}\n" +
-                           $"Añada: {vino.Añada}\n" +
-                           $"Nota de Cata: {vino.NotaDeCataBodega}\n" +
-                           $"Precio: {vino.PrecioARS} ARS\n" +
-                           $"Maridajes: {maridajes}\n" +
-                           $"Varietales: {varietales}\n\n";
-            }
-
-            MessageBox.Show(mensaje, "Resumen de Vinos Importados");
-        }
+      
 
         private void CrearNuevosVinos(List<Vino> vinosParaCrear, Bodega bodegaSeleccionada)
         {
@@ -162,7 +119,10 @@ namespace PPAI2024
                     var tipoUvaEncontrado = BuscarTipoUva(varietal.TipoUva.Nombre);
                     if (tipoUvaEncontrado != null)
                     {
-                        varietales.Add(new Varietal(varietal.Descripcion, varietal.PorcentajeComposicion, tipoUvaEncontrado));
+                        var nuevoVarietal = Vino.CrearVarietal(varietal.Descripcion, varietal.PorcentajeComposicion, tipoUvaEncontrado);
+                        varietales.Add(nuevoVarietal);
+                        
+                        //varietales.Add(new Varietal(varietal.Descripcion, varietal.PorcentajeComposicion, tipoUvaEncontrado));
                     }
                 }
 
@@ -170,9 +130,15 @@ namespace PPAI2024
                 // SE CREA EL VINO NUEVO
                 var nuevoVino = new Vino(maridajes, bodegaSeleccionada, vino.Añada, vino.FechaActualizacion, vino.Nombre, vino.PrecioARS, vino.NotaDeCataBodega, varietales);
 
+
+
+
                 // SE AGREGA EL VINO CREADO A LA BODEGA SELECCIONADA
                 bodegaSeleccionada.Vino.Add(nuevoVino);
             }
+
+            // este metodo lo puse solo para mostrar los vinos que se agregaron a la lista de vinos, NO VA EN LA SOLUCION 
+            //MostrarResumenVinosImportados(bodegaSeleccionada.Vino);
         }
 
 
@@ -192,7 +158,7 @@ namespace PPAI2024
                     return maridaje;
                 }
             }
-            return null; // O manejar el caso de no encontrar el maridaje
+            return null; 
         }
 
         public TipoUva BuscarTipoUva(string nombreTipoUva)
@@ -204,12 +170,30 @@ namespace PPAI2024
                     return tipoUva;
                 }
             }
-            return null; // O manejar el caso de no encontrar el tipo de uva
+            return null;
+        }
+
+        public void MostrarVinosACtualizadosDeUnaBodega(Bodega bodega)
+        {
+            StringBuilder mensaje = new StringBuilder();
+            mensaje.AppendLine($"Bodega: {bodega.Nombre}");
+            if (bodega.Vino.Count == 0)
+            {
+                mensaje.AppendLine("La bodega no tiene vinos.");
+            }
+            else
+            {
+                foreach (var vino in bodega.Vino)
+                {
+
+                    mensaje.AppendLine($"Nombre del vino ACTUALIZADO: {vino.Nombre}, Precio: {vino.PrecioARS}, Nota de Cata: {vino.NotaDeCataBodega}");
+                }
+            }
+            mensaje.AppendLine(); // Línea en blanco para separar las bodegas
+            MessageBox.Show(mensaje.ToString(), "Vinos de la Bodega");
         }
 
 
-
-        
 
 
     }

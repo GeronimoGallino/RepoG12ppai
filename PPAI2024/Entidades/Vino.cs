@@ -47,10 +47,19 @@ namespace PPAI2024.Entidades
         {
             return this.Nombre == otroVino.Nombre && this.Añada == otroVino.Añada;
         }
-        // Método para crear Varietal
+        //Método para crear Varietal
         public static Varietal CrearVarietal(string descripcion, int porcentajeComposicion, TipoUva tipoUva)
         {
             return new Varietal(descripcion, porcentajeComposicion, tipoUva);
         }
+
+        //public void CrearVarietal(string descripcion, int porcentajeComposicion, TipoUva tipoUva)
+        //{
+        //    if (varietal == null)
+        //    {
+        //        varietal = new List<Varietal>();
+        //    }
+        //    varietal.Add(new Varietal(descripcion, porcentajeComposicion, tipoUva));
+        //}
     }
 }

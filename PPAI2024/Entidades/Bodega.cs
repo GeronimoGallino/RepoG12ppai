@@ -37,7 +37,7 @@ namespace PPAI2024.Entidades
         public int PeriodoActualizacion { get { return periodoActualizacion; } set { periodoActualizacion = value; } }
         public DateTime FechaUltimaActualizacion { get { return fechaUltimaActualizacion; } set { fechaUltimaActualizacion = value; } }
         public List<Vino> Vino { get { return vino;  } set { vino = value; } }
-        
+
 
         public bool EstaParaActuNovedadesVino()
         {
@@ -49,11 +49,11 @@ namespace PPAI2024.Entidades
             }
             else
             {
-                // Calcular el período desde la última actualización hasta ahora
-                TimeSpan tiempoDesdeUltimaActualizacion = DateTime.Now - fechaUltimaActualizacion;
+                // Calcular la diferencia en meses entre la última actualización y la fecha actual
+                int mesesDesdeUltimaActualizacion = ((DateTime.Now.Year - fechaUltimaActualizacion.Year) * 12) + DateTime.Now.Month - fechaUltimaActualizacion.Month;
 
-                // Verificar si el tiempo transcurrido supera el período de actualización esperado
-                if (tiempoDesdeUltimaActualizacion.TotalDays >= periodoActualizacion)
+                // Verificar si el tiempo transcurrido en meses supera el período de actualización esperado
+                if (mesesDesdeUltimaActualizacion >= periodoActualizacion)
                 {
                     return true; // Hay actualizaciones disponibles
                 }
@@ -62,15 +62,15 @@ namespace PPAI2024.Entidades
                     return false; // No hay actualizaciones disponibles
                 }
             }
-
         }
+
         public bool tenesEsteVino(Vino vino)
         {
             return Vino.Any(v => v.sosEsteVino(vino));
         }
 
 
-        // METODO EN SUSPENSO
+        
         public void ActualizarDatosVino(Vino vinoActualizado)
         {
             //Recorremos los vinos de Una bodeg
@@ -84,7 +84,7 @@ namespace PPAI2024.Entidades
                     break;
                 }
             }
-           //  hola
+           
         }
     }
 }
