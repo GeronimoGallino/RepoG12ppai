@@ -94,7 +94,7 @@ namespace PPAI2024
             {
                 bodegaSeleccionada.ActualizarDatosVino(vino);
             }
-             //MostrarVinosACtualizadosDeUnaBodega(bodegaSeleccionada);
+             MostrarVinosACtualizadosDeUnaBodega(bodegaSeleccionada);
         }
 
       
@@ -194,7 +194,31 @@ namespace PPAI2024
         }
 
 
+        //Invocacion del metodo buscar seguidores, capaz sobra lo del print VVVVVVVVVVVVVVVVVV
+        public void BuscarSeguidoresBodega(Bodega bodega, List<Enofilo> enofilo)
+        {
+            List<String> seguidores = Enofilo.BuscarSeguidoresBodega(enofilo, bodega);
+            Console.WriteLine($"Seguidores de la bodega {bodega.Nombre}:");
+            foreach(var seguidor in seguidores)
+            {
+                Console.WriteLine(seguidor);
+            }
+        }
 
+        public List<Enofilo> BuscarSeguidoresDeBodega(Bodega bodega, List<Enofilo> listaEnofilos)
+        {
+            List<Enofilo> seguidores = new List<Enofilo>();
+
+            foreach (var enofilo in listaEnofilos) //error porque instancia al objeto como null
+            {
+                if (enofilo.SeguisABodega(bodega))
+                {
+                    seguidores.Add(enofilo);
+                }
+            }
+
+            return seguidores;
+        }
 
     }
 

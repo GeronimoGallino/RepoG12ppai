@@ -8,7 +8,7 @@ namespace PPAI2024.Entidades
 {
     public class Bodega
     {
-
+        
         //atributos
         private string descripcion;
         private string historia;
@@ -86,5 +86,7 @@ namespace PPAI2024.Entidades
             }
            
         }
+       
+
     }
 }

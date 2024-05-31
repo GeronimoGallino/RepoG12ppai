@@ -14,11 +14,11 @@ namespace PPAI2024.Entidades
 
         public Vino favorito;
         public Usuario usuario;
-        public Siguiendo seguido; // este deberia ser una lista pq puede seguir a mas de una bodega o somelier
+        public List<Siguiendo> seguido; // este deberia ser una lista pq puede seguir a mas de una bodega o somelier
 
 
         //metodo constructor
-        public Enofilo(Vino fav,Siguiendo seg, string apel, string nom,Usuario usu)
+        public Enofilo(Vino fav,List<Siguiendo> seg, string apel, string nom,Usuario usu)
         {
             favorito = fav;
             usuario = usu;
@@ -32,6 +32,44 @@ namespace PPAI2024.Entidades
         public string Nombre { get {  return nombre; } set {  nombre = value; } }
         public Vino Favorito { get {  return favorito; } set {  favorito = value; } }
         public Usuario Usuario { get {  return usuario; } set {  usuario = value; } }
-        public Siguiendo Siguiendo { get {  return seguido; } set {  seguido = value; } }
+       public List<Siguiendo> Seguido { get { return seguido; } set { seguido = value; } }
+
+       
+        public static List<string> BuscarSeguidoresBodega(List<Enofilo> enofilos, Bodega bodega)
+        {
+            List<string> seguidores = new List<string>();
+
+            foreach (var enofilo in enofilos)
+            {
+                foreach (var siguiendo in enofilo.seguido)
+                {
+                    if (siguiendo.Bodega == bodega)
+                    {
+                        seguidores.Add($"{enofilo.Nombre} {enofilo.Apellido}");
+                        break;
+                    }
+                }
+            }
+
+            return seguidores;
+        }
+        public bool SeguisABodega(Bodega bodega)
+        {
+            foreach (var siguiendo in Seguido)
+            {
+                if (siguiendo.SosDeBodega(bodega))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        public string GetNombreUsuario()
+        {
+            return Usuario.Nombre;
+        }
+
     }
 }

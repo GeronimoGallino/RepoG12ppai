@@ -34,13 +34,51 @@ namespace PPAI2024
         new Bodega("Viña de balbo", "H", "Vino con cuerpo", 1,new DateTime(2024, 4, 27), new List < Vino >()),
         new Bodega("Benjamin", "H", "Vino dulce", 1,new DateTime(2024, 5, 27), new List < Vino >())
         };
+        private static List<Enofilo> enofilos = new List<Enofilo>
+            {
+                new Enofilo(
+                    new Vino(new List<Maridaje> { new Maridaje("Quesos", "Combina con quesos fuertes", new TipoUva("Cabernet Sauvignon", "Uva tinta")) }, listaDeBodegas[0], "2019", "2023-12-15", "Cabernet Sauvignon Reserva", 300, 1, new List<Varietal> { new Varietal("Cabernet Sauvignon", 100, new TipoUva("Cabernet Sauvignon", "Uva tinta")) }),
+                    new List<Siguiendo> { new Siguiendo(null, listaDeBodegas[0], DateTime.Now.AddMonths(1), DateTime.Now) },
+                    "Perez",
+                    "Juan",
+                    new Usuario("juanperez", "password", true)
+                ),
+                new Enofilo(
+                    new Vino(new List<Maridaje> { new Maridaje("Pescados", "Ideal para pescados", new TipoUva("Chardonnay", "Uva blanca")) }, listaDeBodegas[1], "2020", "2024-01-10", "Chardonnay", 200, 1, new List<Varietal> { new Varietal("Chardonnay", 100, new TipoUva("Chardonnay", "Uva blanca")) }),
+                    new List<Siguiendo> { new Siguiendo(null, listaDeBodegas[1], DateTime.Now.AddMonths(1), DateTime.Now) },
+                    "Gomez",
+                    "Ana",
+                    new Usuario("anagomez", "password", false)
+                ),
+                new Enofilo(
+                    new Vino(new List<Maridaje> { new Maridaje("Pastas", "Perfecto para pastas con salsa roja", new TipoUva("Merlot", "Uva tinta")) }, listaDeBodegas[2], "2018", "2024-02-20", "Merlot", 250, 1, new List<Varietal> { new Varietal("Merlot", 100, new TipoUva("Merlot", "Uva tinta")) }),
+                    new List<Siguiendo> { new Siguiendo(null, listaDeBodegas[2], DateTime.Now.AddMonths(1), DateTime.Now) },
+                    "Lopez",
+                    "Carlos",
+                    new Usuario("carloslopez", "password", true)
+                ),
+                new Enofilo(
+                    new Vino(new List<Maridaje> { new Maridaje("Carnes Rojas", "Ideal para carnes rojas a la parrilla", new TipoUva("Malbec", "Uva tinta")) }, listaDeBodegas[3], "2021", "2024-03-05", "Malbec", 350, 1, new List<Varietal> { new Varietal("Malbec", 100, new TipoUva("Malbec", "Uva tinta")) }),
+                    new List<Siguiendo>
+                    {
+                        new Siguiendo(null, listaDeBodegas[0], DateTime.Now.AddMonths(1), DateTime.Now),
+                        new Siguiendo(null, listaDeBodegas[3], DateTime.Now.AddMonths(1), DateTime.Now)
+                    },
+                    "Martinez",
+                    "Lucia",
+                    new Usuario("luciamartinez", "password", false)
+                )
+            };
+
+
+
 
 
         public InterfazImportadorBodega()
         {
             InitializeComponent();
 
-            //MostrarLosVinosDeUnaBodega(listaDeBodegas);
+            MostrarLosVinosDeUnaBodega(listaDeBodegas);
             
 
             //Filtramos las bodegas que deben actualizarse 
@@ -118,6 +156,11 @@ namespace PPAI2024
                         //Este metodo es para mostrar los vinos actualizados y creados, usamos como parametro listaActualizacionesVinos ya que ahi estan todos juntos
                         MostrarResumenVinosImportados(listaActualizacionesVinos);
 
+                        //Enviamos Notificaciones a los enofilos (C.U 7)
+                        List<Enofilo> seguidoresBodegaSelec = gestor.BuscarSeguidoresDeBodega(bodegaSeleccionada, enofilos);
+                        MostrarSeguidores(seguidoresBodegaSelec, bodegaSeleccionada);
+
+
                     }
                     else
                     {
@@ -180,6 +223,29 @@ namespace PPAI2024
                 MessageBox.Show(mensaje.ToString(), "Vinos de la Bodega");
             }
         }
+        public void MostrarSeguidores(List<Enofilo> seguidores, Bodega bodega)
+        {
+            if (seguidores == null || seguidores.Count == 0)
+            {
+                MessageBox.Show("La bodega no tiene seguidores.", "Seguidores de la Bodega", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            StringBuilder mensaje = new StringBuilder();
+            mensaje.AppendLine($"Seguidores de la bodega {bodega.Nombre}:\n");
+
+            foreach (var seguidor in seguidores)
+            {
+                mensaje.AppendLine($"Nombre: {seguidor.Nombre} {seguidor.Apellido}");
+                mensaje.AppendLine($"Usuario: {seguidor.Usuario.Nombre}");
+                mensaje.AppendLine();
+            }
+
+            MessageBox.Show(mensaje.ToString(), "Seguidores de la Bodega", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+
 
 
     }
