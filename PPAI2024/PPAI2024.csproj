@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Gestor e interfaces\GestorImportarBodega.cs" />
     <Compile Include="Gestor e interfaces\InterfazAPIBodega.cs" />
+    <Compile Include="Gestor e interfaces\InterfazNotificacionPush.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

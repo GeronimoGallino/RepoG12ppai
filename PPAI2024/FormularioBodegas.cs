@@ -17,7 +17,9 @@ namespace PPAI2024
     {
         GestorImportarBodega gestor = new GestorImportarBodega();
         InterfazAPIBodega API = new InterfazAPIBodega();
-      
+        InterfazNotificacionPush InterfazNoti = new InterfazNotificacionPush();
+
+
         private static List<Vino> listaConUnVino = new List<Vino>()
             {
                 
@@ -34,6 +36,7 @@ namespace PPAI2024
         new Bodega("Viña de balbo", "H", "Vino con cuerpo", 1,new DateTime(2024, 4, 27), new List < Vino >()),
         new Bodega("Benjamin", "H", "Vino dulce", 1,new DateTime(2024, 5, 27), new List < Vino >())
         };
+
         private static List<Enofilo> enofilos = new List<Enofilo>
             {
                 new Enofilo(
@@ -78,7 +81,7 @@ namespace PPAI2024
         {
             InitializeComponent();
 
-            MostrarLosVinosDeUnaBodega(listaDeBodegas);
+            //MostrarLosVinosDeUnaBodega(listaDeBodegas);
             
 
             //Filtramos las bodegas que deben actualizarse 
@@ -158,9 +161,10 @@ namespace PPAI2024
 
                         //Enviamos Notificaciones a los enofilos (C.U 7)
                         List<Enofilo> seguidoresBodegaSelec = gestor.BuscarSeguidoresDeBodega(bodegaSeleccionada, enofilos);
-                        MostrarSeguidores(seguidoresBodegaSelec, bodegaSeleccionada);
 
+                        //MostrarSeguidores(seguidoresBodegaSelec, bodegaSeleccionada);
 
+                       // InterfazNoti.NotificarNovedadVinoParaBodega(seguidoresBodegaSelec, bodegaSeleccionada);
                     }
                     else
                     {
@@ -219,7 +223,7 @@ namespace PPAI2024
                         mensaje.AppendLine($"Nombre del vino: {vino.Nombre}, Precio: {vino.PrecioARS}, Nota de Cata: {vino.NotaDeCataBodega}");
                     }
                 }
-                mensaje.AppendLine(); // Línea en blanco para separar las bodegas
+                mensaje.AppendLine(); 
                 MessageBox.Show(mensaje.ToString(), "Vinos de la Bodega");
             }
         }

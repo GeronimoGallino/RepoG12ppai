@@ -94,7 +94,7 @@ namespace PPAI2024
             {
                 bodegaSeleccionada.ActualizarDatosVino(vino);
             }
-             MostrarVinosACtualizadosDeUnaBodega(bodegaSeleccionada);
+            // MostrarVinosACtualizadosDeUnaBodega(bodegaSeleccionada);
         }
 
       
@@ -121,8 +121,7 @@ namespace PPAI2024
                     {
                         var nuevoVarietal = Vino.CrearVarietal(varietal.Descripcion, varietal.PorcentajeComposicion, tipoUvaEncontrado);
                         varietales.Add(nuevoVarietal);
-                        
-                        //varietales.Add(new Varietal(varietal.Descripcion, varietal.PorcentajeComposicion, tipoUvaEncontrado));
+          
                     }
                 }
 

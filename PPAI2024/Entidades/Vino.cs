@@ -53,13 +53,5 @@ namespace PPAI2024.Entidades
             return new Varietal(descripcion, porcentajeComposicion, tipoUva);
         }
 
-        //public void CrearVarietal(string descripcion, int porcentajeComposicion, TipoUva tipoUva)
-        //{
-        //    if (varietal == null)
-        //    {
-        //        varietal = new List<Varietal>();
-        //    }
-        //    varietal.Add(new Varietal(descripcion, porcentajeComposicion, tipoUva));
-        //}
     }
 }
