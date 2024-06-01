@@ -57,30 +57,30 @@ namespace PPAI2024
 
 
 
-        public (List<Vino> vinosParaActualizar, List<Vino> vinosParaCrear) DeterminarVinosAActualizar(Bodega bodega, List<Vino> listaActualizacionesVinos)
-        {
-            List<Vino> vinosParaActualizar = new List<Vino>();
-            List<Vino> vinosParaCrear = new List<Vino>();
+        //public (List<Vino> vinosParaActualizar, List<Vino> vinosParaCrear) DeterminarVinosAActualizar(Bodega bodega, List<Vino> listaActualizacionesVinos)
+        //{
+        //    List<Vino> vinosParaActualizar = new List<Vino>();
+        //    List<Vino> vinosParaCrear = new List<Vino>();
 
-            foreach (var vino in listaActualizacionesVinos)
-            {
-                if (bodega.tenesEsteVino(vino))
-                {
-                    vinosParaActualizar.Add(vino);
-                }
-                else
-                {
-                    vinosParaCrear.Add(vino);
-                }
-            }
+        //    foreach (var vino in listaActualizacionesVinos)
+        //    {
+        //        if (bodega.tenesEsteVino(vino))
+        //        {
+        //            vinosParaActualizar.Add(vino);
+        //        }
+        //        else
+        //        {
+        //            vinosParaCrear.Add(vino);
+        //        }
+        //    }
 
-            return (vinosParaActualizar, vinosParaCrear);
-        }
+        //    return (vinosParaActualizar, vinosParaCrear);
+        //}
 
 
 
-        // eSTOS 3 METODOS EN SUSPENSO
-        // ESTO SERIA LO QUE INVOCA AL ALT
+        
+       
         public void ActualizarOCrearVinos(List<Vino> vinosParaActualizar, List<Vino> vinosParaCrear, Bodega bodegaSeleccionada)
         {
             ActualizarCaracteristicasVinosExistentes(vinosParaActualizar, bodegaSeleccionada);
@@ -188,7 +188,7 @@ namespace PPAI2024
                     mensaje.AppendLine($"Nombre del vino ACTUALIZADO: {vino.Nombre}, Precio: {vino.PrecioARS}, Nota de Cata: {vino.NotaDeCataBodega}");
                 }
             }
-            mensaje.AppendLine(); // Línea en blanco para separar las bodegas
+            mensaje.AppendLine(); 
             MessageBox.Show(mensaje.ToString(), "Vinos de la Bodega");
         }
 
@@ -208,7 +208,7 @@ namespace PPAI2024
         {
             List<Enofilo> seguidores = new List<Enofilo>();
 
-            foreach (var enofilo in listaEnofilos) //error porque instancia al objeto como null
+            foreach (var enofilo in listaEnofilos) 
             {
                 if (enofilo.SeguisABodega(bodega))
                 {
@@ -218,6 +218,32 @@ namespace PPAI2024
 
             return seguidores;
         }
+        public (List<Vino> vinosParaActualizar, List<Vino> vinosParaCrear) DeterminarVinosAActualizar(Bodega bodega, List<Vino> listaActualizacionesVinos)
+        {
+            List<Vino> vinosParaActualizar = new List<Vino>();
+            List<Vino> vinosParaCrear = new List<Vino>();
+
+            if (listaActualizacionesVinos == null || listaActualizacionesVinos.Count == 0)
+            {
+                MessageBox.Show("La bodega no tiene actualizaciones disponibles");
+                return (vinosParaActualizar, vinosParaCrear);
+            }
+
+            foreach (var vino in listaActualizacionesVinos)
+            {
+                if (bodega.tenesEsteVino(vino))
+                {
+                    vinosParaActualizar.Add(vino);
+                }
+                else
+                {
+                    vinosParaCrear.Add(vino);
+                }
+            }
+
+            return (vinosParaActualizar, vinosParaCrear);
+        }
+
 
     }
 

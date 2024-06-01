@@ -81,7 +81,7 @@ namespace PPAI2024
         {
             InitializeComponent();
 
-            //MostrarLosVinosDeUnaBodega(listaDeBodegas);
+            //MostrarLosVinosDeUnaBodega(listaDeBodegas); //muestra los vinos de las bodegas antes de ser actualizado
             
 
             //Filtramos las bodegas que deben actualizarse 
@@ -162,9 +162,10 @@ namespace PPAI2024
                         //Enviamos Notificaciones a los enofilos (C.U 7)
                         List<Enofilo> seguidoresBodegaSelec = gestor.BuscarSeguidoresDeBodega(bodegaSeleccionada, enofilos);
 
-                        //MostrarSeguidores(seguidoresBodegaSelec, bodegaSeleccionada);
+                        bodegaSeleccionada.SetFechaUltimaActualizacion();
+                        //MostrarSeguidores(seguidoresBodegaSelec, bodegaSeleccionada); //muestra los seguidores que tiene una bodega
 
-                       // InterfazNoti.NotificarNovedadVinoParaBodega(seguidoresBodegaSelec, bodegaSeleccionada);
+                       // InterfazNoti.NotificarNovedadVinoParaBodega(seguidoresBodegaSelec, bodegaSeleccionada); // metodo que envia las notificaciones 
                     }
                     else
                     {

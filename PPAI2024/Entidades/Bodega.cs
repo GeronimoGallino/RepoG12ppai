@@ -86,7 +86,11 @@ namespace PPAI2024.Entidades
             }
            
         }
-       
+        public void SetFechaUltimaActualizacion()
+        {
+            fechaUltimaActualizacion = DateTime.Now;
+        }
+
 
     }
 }
