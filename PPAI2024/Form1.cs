@@ -24,14 +24,9 @@ namespace PPAI2024
 
         private void button1_Click(object sender, EventArgs e)
         {
-            habilitarPantalla();
-           
-        }
-
-        public void habilitarPantalla()
-        {
             InterfazImportadorBodega Form = new InterfazImportadorBodega();
             Form.Show();
+
         }
 
 

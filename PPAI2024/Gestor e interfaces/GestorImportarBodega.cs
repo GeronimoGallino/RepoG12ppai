@@ -33,7 +33,7 @@ namespace PPAI2024
             List<Vino> listaActualizacionesVinos = API.ObtenerActualizacionesBodega(bodegaSeleccionada);
 
             // ACA DE LA LISTA listaActualizacionesVinos creamos dos listas, una con los vinos a modificar y otra con los vinos paara crear
-            var (vinosParaActualizar, vinosParaCrear) = DeterminarVinosAActualizar(bodegaSeleccionada, listaActualizacionesVinos);
+            var (vinosParaActualizar, vinosParaCrear) = determinarVinosAActualizar(bodegaSeleccionada, listaActualizacionesVinos);
 
             //ACA EMPEZARIA EL PASO 6 DEL CU 
 
@@ -44,7 +44,7 @@ namespace PPAI2024
             interfaz.MostrarResumenVinosImportados(listaActualizacionesVinos);
 
             //Enviamos Notificaciones a los enofilos (C.U 7)
-            List<Enofilo> seguidoresBodegaSelec = BuscarSeguidoresDeBodega(bodegaSeleccionada, enofilos);
+            List<Enofilo> seguidoresBodegaSelec = buscarSeguidoresDeBodega(bodegaSeleccionada, enofilos);
 
             bodegaSeleccionada.SetFechaUltimaActualizacion();
 
@@ -205,7 +205,7 @@ namespace PPAI2024
             MessageBox.Show(mensaje.ToString(), "Vinos de la Bodega");
         }
 
-        public List<Enofilo> BuscarSeguidoresDeBodega(Bodega bodega, List<Enofilo> listaEnofilos)
+        public List<Enofilo> buscarSeguidoresDeBodega(Bodega bodega, List<Enofilo> listaEnofilos)
         {
             List<Enofilo> seguidores = new List<Enofilo>();
 
@@ -219,14 +219,15 @@ namespace PPAI2024
 
             return seguidores;
         }
-        public (List<Vino> vinosParaActualizar, List<Vino> vinosParaCrear) DeterminarVinosAActualizar(Bodega bodega, List<Vino> listaActualizacionesVinos)
+        public (List<Vino> vinosParaActualizar, List<Vino> vinosParaCrear) determinarVinosAActualizar(Bodega bodega, List<Vino> listaActualizacionesVinos)
         {
             List<Vino> vinosParaActualizar = new List<Vino>();
             List<Vino> vinosParaCrear = new List<Vino>();
 
             if (listaActualizacionesVinos == null || listaActualizacionesVinos.Count == 0)
             {
-                MessageBox.Show("La bodega no tiene actualizaciones disponibles");
+                MessageBox.Show("El Sistema externo de la Bodega "+ bodega.Nombre + " no da respuesta","ERROR");
+                
                 return (vinosParaActualizar, vinosParaCrear);
             }
 

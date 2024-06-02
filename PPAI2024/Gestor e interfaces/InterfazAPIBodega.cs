@@ -14,6 +14,7 @@ namespace PPAI2024.Gestor_e_interfaces
             // Simulamos la obtención de datos de la API
             // Supongamos que la API devuelve una lista de vinos  a actualizar
             DateTime fechaActual = DateTime.Now;
+            List<Vino> listaParaProbarAlternativa = new List<Vino> { };
             List<Vino> actualizaciones = new List<Vino>
             
             {
@@ -79,7 +80,7 @@ namespace PPAI2024.Gestor_e_interfaces
         )
     };
 
-            return actualizaciones;
+            return listaParaProbarAlternativa;
         }
 
 

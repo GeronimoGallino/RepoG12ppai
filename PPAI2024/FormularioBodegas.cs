@@ -30,8 +30,8 @@ namespace PPAI2024
         //Lista de Objetos Bodega para probar el metodo, la lista tiene que ser de las bodegas que tienen actualizacion disponible
         private static List<Bodega> listaDeBodegas = new List<Bodega>
         {
-        new Bodega("Santa Julia", "H", "Vino blanco", 2, new DateTime(2024, 1, 27),listaConUnVino),
-        new Bodega("Toro", "H", "Vino tinto", 10,new DateTime(2024, 2, 27), new List<Vino>()),
+        new Bodega("Santa Julia", "H", "Vino blanco", 10, new DateTime(2024, 1, 27),listaConUnVino),
+        new Bodega("Toro", "H", "Vino tinto", 10,new DateTime(2023, 2, 27), new List<Vino>()),
         new Bodega("El vino de la mona", "H", "Violeta", 10,new DateTime(2024, 3, 27), new List < Vino >()),
         new Bodega("Viña de balbo", "H", "Vino con cuerpo", 10,new DateTime(2024, 4, 27), new List < Vino >()),
         new Bodega("Benjamin", "H", "Vino dulce", 10,new DateTime(2024, 5, 27), new List < Vino >())
@@ -86,27 +86,38 @@ namespace PPAI2024
 
         public void MostrarBodegasParaActualizar(List<Bodega> bodegas)
         {
-            // Limpiar las filas existentes en la grilla antes de agregar nuevas 
-            grillaBodegas.Rows.Clear();
-
-            // Iterar sobre la lista de bodegas
-            foreach (var bod in bodegas)
+            if (bodegas.Count == 0)
             {
-                // Crear una nueva fila
-                DataGridViewRow fila = new DataGridViewRow();
+                 MessageBox.Show("No hay Ninguna Bodega con Actualizacion Disponible");
+                this.Hide();
 
-                // Crear una celda y asignar el valor del nombre de la bodega
-                DataGridViewTextBoxCell celdaNombre = new DataGridViewTextBoxCell
-                {
-                    Value = bod.Nombre
-                };
-
-                // Agregar la celda a la fila
-                fila.Cells.Add(celdaNombre);
-
-                // Agregar la fila a la grilla
-                grillaBodegas.Rows.Add(fila);
             }
+            else
+            {
+                // Limpiar las filas existentes en la grilla antes de agregar nuevas 
+                grillaBodegas.Rows.Clear();
+
+                // Iterar sobre la lista de bodegas
+                foreach (var bod in bodegas)
+                {
+                    // Crear una nueva fila
+                    DataGridViewRow fila = new DataGridViewRow();
+
+                    // Crear una celda y asignar el valor del nombre de la bodega
+                    DataGridViewTextBoxCell celdaNombre = new DataGridViewTextBoxCell
+                    {
+                        Value = bod.Nombre
+                    };
+
+                    // Agregar la celda a la fila
+                    fila.Cells.Add(celdaNombre);
+
+                    // Agregar la fila a la grilla
+                    grillaBodegas.Rows.Add(fila);
+                }
+            }
+
+           
         }
 
 
@@ -133,33 +144,7 @@ namespace PPAI2024
                     //  el usuario hace clic en Aceptar
                     if (dialogResult == DialogResult.OK)
                     {
-                        //ACA OBTENEMOS LAS ACTUALIZACIONES DE LA BODEGA SELECCIONADA 
-            //            List<Vino> listaActualizacionesVinos =  API.ObtenerActualizacionesBodega(bodegaSeleccionada);
-                        
-                        // ACA DE LA LISTA listaActualizacionesVinos creamos dos listas, una con los vinos a modificar y otra con los vinos paara crear
-            //            var (vinosParaActualizar, vinosParaCrear) = gestor.DeterminarVinosAActualizar(bodegaSeleccionada, listaActualizacionesVinos);
-
-                        //ACA EMPEZARIA EL PASO 6 DEL CU
-                        //Actualizar las novedades importadas del sistema de bodega
-                        //y muestra un resumen de los vinos creados y/o actualizados 
-
-                        //aca actualizamos y creamos los vinos pero no mostramos los datos modificados 
-            //            gestor.ActualizarOCrearVinos(vinosParaActualizar, vinosParaCrear, bodegaSeleccionada);
-
-                        //Este metodo es para mostrar los vinos actualizados y creados, usamos como parametro listaActualizacionesVinos ya que ahi estan todos juntos
-             //           MostrarResumenVinosImportados(listaActualizacionesVinos);
-
-                        //Enviamos Notificaciones a los enofilos (C.U 7)
-           //             List<Enofilo> seguidoresBodegaSelec = gestor.BuscarSeguidoresDeBodega(bodegaSeleccionada, enofilos);
-
-          //              bodegaSeleccionada.SetFechaUltimaActualizacion();
-
-                        tomarSelecBodega(bodegaSeleccionada, enofilos, this, API, InterfazNoti);
-
-
-                        //MostrarSeguidores(seguidoresBodegaSelec, bodegaSeleccionada); //muestra los seguidores que tiene una bodega
-
-                       // InterfazNoti.NotificarNovedadVinoParaBodega(seguidoresBodegaSelec, bodegaSeleccionada); // metodo que envia las notificaciones 
+                        tomarSelecBodega(bodegaSeleccionada, enofilos, this, API, InterfazNoti); 
                     }
                     else
                     {
