@@ -1,4 +1,5 @@
 ﻿using PPAI2024.Entidades;
+using PPAI2024.Gestor_e_interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,44 @@ namespace PPAI2024
     {
         private List<Maridaje> maridajes;
         private List<TipoUva> tiposDeUva;
+
+        public void opcImportarActVinos(List<Bodega> listaDeBodegas, InterfazImportadorBodega interfaz)
+        {
+
+            //Filtramos las bodegas que deben actualizarse 
+
+            List<Bodega> bodegasParaActualizar = BuscarBodegasParaActualizar(listaDeBodegas);
+
+            //mostramos las bodegas que deben actualizarse
+
+            interfaz.MostrarBodegasParaActualizar(bodegasParaActualizar);
+
+        }
+
+        public void tomarSelecBodega(Bodega bodegaSeleccionada,List<Enofilo> enofilos, InterfazImportadorBodega interfaz, InterfazAPIBodega API, InterfazNotificacionPush interfazNoti)
+        {
+            //ACA OBTENEMOS LAS ACTUALIZACIONES DE LA BODEGA SELECCIONADA 
+            List<Vino> listaActualizacionesVinos = API.ObtenerActualizacionesBodega(bodegaSeleccionada);
+
+            // ACA DE LA LISTA listaActualizacionesVinos creamos dos listas, una con los vinos a modificar y otra con los vinos paara crear
+            var (vinosParaActualizar, vinosParaCrear) = DeterminarVinosAActualizar(bodegaSeleccionada, listaActualizacionesVinos);
+
+            //ACA EMPEZARIA EL PASO 6 DEL CU 
+
+            //aca actualizamos y creamos los vinos pero no mostramos los datos modificados 
+            ActualizarOCrearVinos(vinosParaActualizar, vinosParaCrear, bodegaSeleccionada);
+
+            //Este metodo es para mostrar los vinos actualizados y creados, usamos como parametro listaActualizacionesVinos ya que ahi estan todos juntos
+            interfaz.MostrarResumenVinosImportados(listaActualizacionesVinos);
+
+            //Enviamos Notificaciones a los enofilos (C.U 7)
+            List<Enofilo> seguidoresBodegaSelec = BuscarSeguidoresDeBodega(bodegaSeleccionada, enofilos);
+
+            bodegaSeleccionada.SetFechaUltimaActualizacion();
+
+            interfazNoti.NotificarNovedadVinoParaBodega(seguidoresBodegaSelec, bodegaSeleccionada);
+        }
+
 
         public GestorImportarBodega()
         {
@@ -54,32 +93,6 @@ namespace PPAI2024
             // Devolver la lista de bodegas para actualizar
             return bodegasParaActualizar;
         }
-
-
-
-        //public (List<Vino> vinosParaActualizar, List<Vino> vinosParaCrear) DeterminarVinosAActualizar(Bodega bodega, List<Vino> listaActualizacionesVinos)
-        //{
-        //    List<Vino> vinosParaActualizar = new List<Vino>();
-        //    List<Vino> vinosParaCrear = new List<Vino>();
-
-        //    foreach (var vino in listaActualizacionesVinos)
-        //    {
-        //        if (bodega.tenesEsteVino(vino))
-        //        {
-        //            vinosParaActualizar.Add(vino);
-        //        }
-        //        else
-        //        {
-        //            vinosParaCrear.Add(vino);
-        //        }
-        //    }
-
-        //    return (vinosParaActualizar, vinosParaCrear);
-        //}
-
-
-
-        
        
         public void ActualizarOCrearVinos(List<Vino> vinosParaActualizar, List<Vino> vinosParaCrear, Bodega bodegaSeleccionada)
         {
@@ -190,18 +203,6 @@ namespace PPAI2024
             }
             mensaje.AppendLine(); 
             MessageBox.Show(mensaje.ToString(), "Vinos de la Bodega");
-        }
-
-
-        //Invocacion del metodo buscar seguidores, capaz sobra lo del print VVVVVVVVVVVVVVVVVV
-        public void BuscarSeguidoresBodega(Bodega bodega, List<Enofilo> enofilo)
-        {
-            List<String> seguidores = Enofilo.BuscarSeguidoresBodega(enofilo, bodega);
-            Console.WriteLine($"Seguidores de la bodega {bodega.Nombre}:");
-            foreach(var seguidor in seguidores)
-            {
-                Console.WriteLine(seguidor);
-            }
         }
 
         public List<Enofilo> BuscarSeguidoresDeBodega(Bodega bodega, List<Enofilo> listaEnofilos)

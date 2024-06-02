@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PPAI2024.Gestor_e_interfaces
 {
-    internal class InterfazAPIBodega
+    public class InterfazAPIBodega
     {
         public List<Vino> ObtenerActualizacionesBodega(Bodega bodega)
         {

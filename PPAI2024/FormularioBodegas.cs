@@ -31,10 +31,10 @@ namespace PPAI2024
         private static List<Bodega> listaDeBodegas = new List<Bodega>
         {
         new Bodega("Santa Julia", "H", "Vino blanco", 2, new DateTime(2024, 1, 27),listaConUnVino),
-        new Bodega("Toro", "H", "Vino tinto", 4,new DateTime(2024, 2, 27), new List<Vino>()),
-        new Bodega("El vino de la mona", "H", "Violeta", 3,new DateTime(2024, 3, 27), new List < Vino >()),
-        new Bodega("Viña de balbo", "H", "Vino con cuerpo", 1,new DateTime(2024, 4, 27), new List < Vino >()),
-        new Bodega("Benjamin", "H", "Vino dulce", 1,new DateTime(2024, 5, 27), new List < Vino >())
+        new Bodega("Toro", "H", "Vino tinto", 10,new DateTime(2024, 2, 27), new List<Vino>()),
+        new Bodega("El vino de la mona", "H", "Violeta", 10,new DateTime(2024, 3, 27), new List < Vino >()),
+        new Bodega("Viña de balbo", "H", "Vino con cuerpo", 10,new DateTime(2024, 4, 27), new List < Vino >()),
+        new Bodega("Benjamin", "H", "Vino dulce", 10,new DateTime(2024, 5, 27), new List < Vino >())
         };
 
         private static List<Enofilo> enofilos = new List<Enofilo>
@@ -80,17 +80,7 @@ namespace PPAI2024
         public InterfazImportadorBodega()
         {
             InitializeComponent();
-
-            //MostrarLosVinosDeUnaBodega(listaDeBodegas); //muestra los vinos de las bodegas antes de ser actualizado
-            
-
-            //Filtramos las bodegas que deben actualizarse 
-
-            List<Bodega> bodegasParaActualizar = gestor.BuscarBodegasParaActualizar(listaDeBodegas);
-
-            //mostramos las bodegas que deben actualizarse
-
-            MostrarBodegasParaActualizar(bodegasParaActualizar);
+            opcImportarActVinos();
           
         }
 
@@ -144,25 +134,29 @@ namespace PPAI2024
                     if (dialogResult == DialogResult.OK)
                     {
                         //ACA OBTENEMOS LAS ACTUALIZACIONES DE LA BODEGA SELECCIONADA 
-                        List<Vino> listaActualizacionesVinos =  API.ObtenerActualizacionesBodega(bodegaSeleccionada);
+            //            List<Vino> listaActualizacionesVinos =  API.ObtenerActualizacionesBodega(bodegaSeleccionada);
                         
                         // ACA DE LA LISTA listaActualizacionesVinos creamos dos listas, una con los vinos a modificar y otra con los vinos paara crear
-                        var (vinosParaActualizar, vinosParaCrear) = gestor.DeterminarVinosAActualizar(bodegaSeleccionada, listaActualizacionesVinos);
+            //            var (vinosParaActualizar, vinosParaCrear) = gestor.DeterminarVinosAActualizar(bodegaSeleccionada, listaActualizacionesVinos);
 
                         //ACA EMPEZARIA EL PASO 6 DEL CU
                         //Actualizar las novedades importadas del sistema de bodega
                         //y muestra un resumen de los vinos creados y/o actualizados 
 
                         //aca actualizamos y creamos los vinos pero no mostramos los datos modificados 
-                        gestor.ActualizarOCrearVinos(vinosParaActualizar, vinosParaCrear, bodegaSeleccionada);
+            //            gestor.ActualizarOCrearVinos(vinosParaActualizar, vinosParaCrear, bodegaSeleccionada);
 
                         //Este metodo es para mostrar los vinos actualizados y creados, usamos como parametro listaActualizacionesVinos ya que ahi estan todos juntos
-                        MostrarResumenVinosImportados(listaActualizacionesVinos);
+             //           MostrarResumenVinosImportados(listaActualizacionesVinos);
 
                         //Enviamos Notificaciones a los enofilos (C.U 7)
-                        List<Enofilo> seguidoresBodegaSelec = gestor.BuscarSeguidoresDeBodega(bodegaSeleccionada, enofilos);
+           //             List<Enofilo> seguidoresBodegaSelec = gestor.BuscarSeguidoresDeBodega(bodegaSeleccionada, enofilos);
 
-                        bodegaSeleccionada.SetFechaUltimaActualizacion();
+          //              bodegaSeleccionada.SetFechaUltimaActualizacion();
+
+                        tomarSelecBodega(bodegaSeleccionada, enofilos, this, API, InterfazNoti);
+
+
                         //MostrarSeguidores(seguidoresBodegaSelec, bodegaSeleccionada); //muestra los seguidores que tiene una bodega
 
                        // InterfazNoti.NotificarNovedadVinoParaBodega(seguidoresBodegaSelec, bodegaSeleccionada); // metodo que envia las notificaciones 
@@ -176,6 +170,21 @@ namespace PPAI2024
             }
         }
 
+        public void opcImportarActVinos()
+        {
+            habilitarPantalla();
+        }
+
+        public void habilitarPantalla()
+        {
+            this.Show();
+            gestor.opcImportarActVinos(listaDeBodegas,this);
+        }
+
+        public void tomarSelecBodega( Bodega bodegaSeleccionada,List<Enofilo> enofilos,InterfazImportadorBodega interfaz,InterfazAPIBodega API,InterfazNotificacionPush InterfazNoti)
+        {
+            gestor.tomarSelecBodega(bodegaSeleccionada, enofilos, this, API, InterfazNoti);
+        }
 
 
         public void MostrarResumenVinosImportados(List<Vino> vinos)

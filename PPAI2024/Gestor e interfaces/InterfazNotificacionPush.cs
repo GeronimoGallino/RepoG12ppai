@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace PPAI2024.Gestor_e_interfaces
 {
-    internal class InterfazNotificacionPush
+    public class InterfazNotificacionPush
     {
 
 
