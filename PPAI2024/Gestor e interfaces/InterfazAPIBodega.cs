@@ -79,8 +79,8 @@ namespace PPAI2024.Gestor_e_interfaces
             new List<Varietal> { new Varietal("Cabernet Sauvignon", 100, new TipoUva("Cabernet Sauvignon", "Uva tinta")) }
         )
     };
-
-            return listaParaProbarAlternativa;
+            return actualizaciones;
+            //return listaParaProbarAlternativa;
         }
 
 

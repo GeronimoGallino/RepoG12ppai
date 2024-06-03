@@ -38,7 +38,6 @@ namespace PPAI2024.Entidades
         public DateTime FechaUltimaActualizacion { get { return fechaUltimaActualizacion; } set { fechaUltimaActualizacion = value; } }
         public List<Vino> Vino { get { return vino;  } set { vino = value; } }
 
-
         public bool EstaParaActuNovedadesVino()
         {
             // Verificar si se ha establecido una fecha de última actualización
@@ -68,8 +67,6 @@ namespace PPAI2024.Entidades
         {
             return Vino.Any(v => v.sosEsteVino(vino));
         }
-
-
         
         public void ActualizarDatosVino(Vino vinoActualizado)
         {
@@ -84,13 +81,18 @@ namespace PPAI2024.Entidades
                     break;
                 }
             }
-           
         }
+
         public void SetFechaUltimaActualizacion()
         {
             fechaUltimaActualizacion = DateTime.Now;
         }
 
+        public void crearVino(List<Maridaje> maridajes, string añada, string fechaActualizacion, string nombre, int precioARS, int notaDeCataBodega, List<Varietal> varietales)
+        {
+            Vino nuevoVino = new Vino(maridajes, this, añada, fechaActualizacion, nombre, precioARS, notaDeCataBodega, varietales);
+            this.Vino.Add(nuevoVino); // Agrega el nuevo vino a la lista de vinos de la bodega
+        }
 
     }
 }

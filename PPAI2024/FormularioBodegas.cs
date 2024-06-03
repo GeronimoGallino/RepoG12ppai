@@ -30,10 +30,10 @@ namespace PPAI2024
         //Lista de Objetos Bodega para probar el metodo, la lista tiene que ser de las bodegas que tienen actualizacion disponible
         private static List<Bodega> listaDeBodegas = new List<Bodega>
         {
-        new Bodega("Santa Julia", "H", "Vino blanco", 10, new DateTime(2024, 1, 27),listaConUnVino),
-        new Bodega("Toro", "H", "Vino tinto", 10,new DateTime(2023, 2, 27), new List<Vino>()),
-        new Bodega("El vino de la mona", "H", "Violeta", 10,new DateTime(2024, 3, 27), new List < Vino >()),
-        new Bodega("Viña de balbo", "H", "Vino con cuerpo", 10,new DateTime(2024, 4, 27), new List < Vino >()),
+        new Bodega("Santa Julia", "H", "Vino blanco", 1, new DateTime(2024, 1, 27),listaConUnVino),
+        new Bodega("Toro", "H", "Vino tinto", 3,new DateTime(2024, 1, 27), new List<Vino>()),
+        new Bodega("El vino de la mona", "H", "Violeta", 4,new DateTime(2024, 3, 27), new List < Vino >()),
+        new Bodega("Viña de balbo", "H", "Vino con cuerpo",2,new DateTime(2024, 3, 27), new List < Vino >()),
         new Bodega("Benjamin", "H", "Vino dulce", 10,new DateTime(2024, 5, 27), new List < Vino >())
         };
 

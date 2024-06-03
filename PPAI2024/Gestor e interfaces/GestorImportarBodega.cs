@@ -114,23 +114,25 @@ namespace PPAI2024
 
         private void CrearNuevosVinos(List<Vino> vinosParaCrear, Bodega bodegaSeleccionada)
         {
-            foreach (var vino in vinosParaCrear)
+            foreach (var vino in vinosParaCrear) //aca Iteramos sobre cada vino para crear 
             {
                 var maridajes = new List<Maridaje>();
-                foreach (var maridaje in vino.Maridaje)
+                foreach (var maridaje in vino.Maridaje) //Iteramos sobre la lista de Maridaje de cada vino 
                 {
-                    var encontrado = BuscarMaridaje(maridaje.Nombre);
-                    if (encontrado != null)
+                    var maridajeEncontrado = BuscarMaridaje(maridaje.Nombre);
+                    if (maridajeEncontrado != null)
                     {
-                        maridajes.Add(encontrado);
+                        maridajes.Add(maridajeEncontrado); //Si encuentra un Objeto Maridaje igual al nombre del Maridaje pasado por parametro(el que viene por la API)
+                                                           //lo agrega a una lista de maridajes que luego van a ser agregados en la creacion del vino
                     }
                 }
 
-                var varietales = new List<Varietal>();
-                foreach (var varietal in vino.Varietal)
+                var varietales = new List<Varietal>(); 
+                foreach (var varietal in vino.Varietal)  //Iteramos sobre la lista de TipoUva de cada vino
                 {
-                    var tipoUvaEncontrado = BuscarTipoUva(varietal.TipoUva.Nombre);
-                    if (tipoUvaEncontrado != null)
+                    var tipoUvaEncontrado = BuscarTipoUva(varietal.TipoUva.Nombre);  //Por cada objeto tipo uva encontrado el vino crea un nuevo varietal
+                                                                                     // (patronCreador) con el objeto TipoUva que se pasa por parametro
+                    if (tipoUvaEncontrado != null)                             
                     {
                         var nuevoVarietal = Vino.CrearVarietal(varietal.Descripcion, varietal.PorcentajeComposicion, tipoUvaEncontrado);
                         varietales.Add(nuevoVarietal);
@@ -138,36 +140,23 @@ namespace PPAI2024
                     }
                 }
 
-
+                
                 // SE CREA EL VINO NUEVO
-                var nuevoVino = new Vino(maridajes, bodegaSeleccionada, vino.Añada, vino.FechaActualizacion, vino.Nombre, vino.PrecioARS, vino.NotaDeCataBodega, varietales);
-
-
-
-
-                // SE AGREGA EL VINO CREADO A LA BODEGA SELECCIONADA
-                bodegaSeleccionada.Vino.Add(nuevoVino);
+                crearVino(bodegaSeleccionada, maridajes, vino.Añada, vino.FechaActualizacion, vino.Nombre, vino.PrecioARS, vino.NotaDeCataBodega, varietales);                               
             }
 
-            // este metodo lo puse solo para mostrar los vinos que se agregaron a la lista de vinos, NO VA EN LA SOLUCION 
-            //MostrarResumenVinosImportados(bodegaSeleccionada.Vino);
+            //MostrarLosVinosDeUnaBodega(bodegaSeleccionada);
+            
         }
-
-
-
-
-
-
-
-
 
         public Maridaje BuscarMaridaje(string nombreMaridaje)
         {
-            foreach (var maridaje in maridajes)
+            foreach (var maridaje in maridajes) //El metodo BuscarMaridaje itera sobre la lista de maridajes que tenemos declarada y a cada maaridaje de la lista se le pregunta 
+                                                // si es el maridaje pasado por parametro(SERIA EL NOMBRE DEL MARIDAJE QUE VIENE EN EL JASON)
             {
-                if (maridaje.SosMaridaje(nombreMaridaje))
+                if (maridaje.SosMaridaje(nombreMaridaje)) 
                 {
-                    return maridaje;
+                    return maridaje;            //Nos retorna el objeto Maridaje
                 }
             }
             return null; 
@@ -175,11 +164,12 @@ namespace PPAI2024
 
         public TipoUva BuscarTipoUva(string nombreTipoUva)
         {
-            foreach (var tipoUva in tiposDeUva)
+            foreach (var tipoUva in tiposDeUva) //El metodo BuscarTipoUva itera sobre la lista de tiposDeUva que tenemos declarada y a cada tipoDeUva de la lista se le pregunta 
+                                                // si es el tipoDeUva pasado por parametro(SERIA EL NOMBRE DEL MARIDAJE QUE VIENE EN EL JASON)
             {
                 if (tipoUva.SosTipoUva(nombreTipoUva))
                 {
-                    return tipoUva;
+                    return tipoUva;             //Nos retorna el objeto TipoUva
                 }
             }
             return null;
@@ -244,6 +234,34 @@ namespace PPAI2024
             }
 
             return (vinosParaActualizar, vinosParaCrear);
+        }
+
+        public void crearVino(Bodega bodega, List<Maridaje> maridajes, string añada, string fechaActualizacion, string nombre, int precioARS, int notaDeCataBodega, List<Varietal> varietales)
+        {
+            bodega.crearVino(maridajes, añada, fechaActualizacion, nombre, precioARS, notaDeCataBodega, varietales);
+        }
+
+
+        public void MostrarLosVinosDeUnaBodega(Bodega bodega)
+        {
+           
+            
+                StringBuilder mensaje = new StringBuilder();
+                mensaje.AppendLine($"Bodega: {bodega.Nombre}");
+                if (bodega.Vino.Count == 0)
+                {
+                    mensaje.AppendLine("La bodega no tiene vinos.");
+                }
+                else
+                {
+                    foreach (var vino in bodega.Vino)
+                    {
+                        mensaje.AppendLine($"Nombre del vino: {vino.Nombre}, Precio: {vino.PrecioARS}, Nota de Cata: {vino.NotaDeCataBodega}");
+                    }
+                }
+                mensaje.AppendLine();
+                MessageBox.Show(mensaje.ToString(), "Vinos de la Bodega");
+            
         }
 
 
