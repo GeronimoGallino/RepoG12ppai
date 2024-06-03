@@ -43,10 +43,14 @@ namespace PPAI2024.Entidades
         public List<Maridaje> Maridaje { get {  return maridaje; } set {  maridaje = value; } }
         public Bodega Bodega { get { return bodega; } set { bodega = value; } }
         public List<Varietal> Varietal { get {  return varietal; } set {  varietal = value; } }
+
+
         public bool sosEsteVino(Vino otroVino)
         {
             return this.Nombre == otroVino.Nombre && this.Añada == otroVino.Añada;
         }
+
+
         //Método para crear Varietal
         public static Varietal CrearVarietal(string descripcion, int porcentajeComposicion, TipoUva tipoUva)
         {

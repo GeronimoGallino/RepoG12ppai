@@ -35,29 +35,11 @@ namespace PPAI2024.Entidades
        public List<Siguiendo> Seguido { get { return seguido; } set { seguido = value; } }
 
        
-        public static List<string> BuscarSeguidoresBodega(List<Enofilo> enofilos, Bodega bodega)
-        {
-            List<string> seguidores = new List<string>();
-
-            foreach (var enofilo in enofilos)
-            {
-                foreach (var siguiendo in enofilo.seguido)
-                {
-                    if (siguiendo.Bodega == bodega)
-                    {
-                        seguidores.Add($"{enofilo.Nombre} {enofilo.Apellido}");
-                        break;
-                    }
-                }
-            }
-
-            return seguidores;
-        }
         public bool SeguisABodega(Bodega bodega)
         {
-            foreach (var siguiendo in Seguido)
+            foreach (var siguiendo in Seguido) //Recorremos la lista Seguido del Enofilo verificando si el enofilo sigue a la bodega seleccionada
             {
-                if (siguiendo.SosDeBodega(bodega))
+                if (siguiendo.SosDeBodega(bodega)) // le preguntamos a cada objeto Siguiendo si tiene como atributo a la bodega seleccionada
                 {
                     return true;
                 }

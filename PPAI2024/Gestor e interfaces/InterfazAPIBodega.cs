@@ -9,7 +9,7 @@ namespace PPAI2024.Gestor_e_interfaces
 {
     public class InterfazAPIBodega
     {
-        public List<Vino> ObtenerActualizacionesBodega(Bodega bodega)
+        public List<Vino> obtenerActVinosBodega(Bodega bodega)
         {
             // Simulamos la obtención de datos de la API
             // Supongamos que la API devuelve una lista de vinos  a actualizar

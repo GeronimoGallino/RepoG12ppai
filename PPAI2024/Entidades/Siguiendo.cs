@@ -31,7 +31,8 @@ namespace PPAI2024.Entidades
 
         public bool SosDeBodega(Bodega bodega)
         {
-            return this.bodega.Nombre == bodega.Nombre;
+            return this.bodega.Nombre == bodega.Nombre; //retornamos true si el nombre de la bodega que contiene el objeto siguiendo es 
+                                                        // igual al nombre de la bodega pasada por parametro (la bodega seleccionada)
         }
     }
 

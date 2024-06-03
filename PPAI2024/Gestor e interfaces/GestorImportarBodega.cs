@@ -30,7 +30,7 @@ namespace PPAI2024
         public void tomarSelecBodega(Bodega bodegaSeleccionada,List<Enofilo> enofilos, InterfazImportadorBodega interfaz, InterfazAPIBodega API, InterfazNotificacionPush interfazNoti)
         {
             //ACA OBTENEMOS LAS ACTUALIZACIONES DE LA BODEGA SELECCIONADA 
-            List<Vino> listaActualizacionesVinos = API.ObtenerActualizacionesBodega(bodegaSeleccionada);
+            List<Vino> listaActualizacionesVinos = obtenerActVinosBodega(API,bodegaSeleccionada);
 
             // ACA DE LA LISTA listaActualizacionesVinos creamos dos listas, una con los vinos a modificar y otra con los vinos paara crear
             var (vinosParaActualizar, vinosParaCrear) = determinarVinosAActualizar(bodegaSeleccionada, listaActualizacionesVinos);
@@ -40,14 +40,16 @@ namespace PPAI2024
             //aca actualizamos y creamos los vinos pero no mostramos los datos modificados 
             ActualizarOCrearVinos(vinosParaActualizar, vinosParaCrear, bodegaSeleccionada);
 
+
+            //actualizamos la ultima fecha de actualizacion de la bodega 
+            bodegaSeleccionada.SetFechaUltimaActualizacion();
+
             //Este metodo es para mostrar los vinos actualizados y creados, usamos como parametro listaActualizacionesVinos ya que ahi estan todos juntos
             interfaz.MostrarResumenVinosImportados(listaActualizacionesVinos);
 
-            //Enviamos Notificaciones a los enofilos (C.U 7)
+            //Enviamos Notificaciones a los enofilos (Paso 7 del CU)
             List<Enofilo> seguidoresBodegaSelec = buscarSeguidoresDeBodega(bodegaSeleccionada, enofilos);
-
-            bodegaSeleccionada.SetFechaUltimaActualizacion();
-
+            
             interfazNoti.NotificarNovedadVinoParaBodega(seguidoresBodegaSelec, bodegaSeleccionada);
         }
 
@@ -199,10 +201,12 @@ namespace PPAI2024
         {
             List<Enofilo> seguidores = new List<Enofilo>();
 
-            foreach (var enofilo in listaEnofilos) 
+            foreach (var enofilo in listaEnofilos) // Recorremos todos los enofilos que tenemos
             {
-                if (enofilo.SeguisABodega(bodega))
+                if (enofilo.SeguisABodega(bodega)) //le Preguntamos a cada uno si sigue a la bodega seleccionada, si la sigue agregamos 
+                                                   // el enofilo a la lista seguidores
                 {
+                    enofilo.GetNombreUsuario();
                     seguidores.Add(enofilo);
                 }
             }
@@ -211,9 +215,11 @@ namespace PPAI2024
         }
         public (List<Vino> vinosParaActualizar, List<Vino> vinosParaCrear) determinarVinosAActualizar(Bodega bodega, List<Vino> listaActualizacionesVinos)
         {
+            // De la lista de Vinos de la API filtramos los que son para actualizar y los que se deben crear
             List<Vino> vinosParaActualizar = new List<Vino>();
             List<Vino> vinosParaCrear = new List<Vino>();
 
+            // Aca tenemos en cuenta la alternativa 3
             if (listaActualizacionesVinos == null || listaActualizacionesVinos.Count == 0)
             {
                 MessageBox.Show("El Sistema externo de la Bodega "+ bodega.Nombre + " no da respuesta","ERROR");
@@ -221,13 +227,14 @@ namespace PPAI2024
                 return (vinosParaActualizar, vinosParaCrear);
             }
 
-            foreach (var vino in listaActualizacionesVinos)
+            
+            foreach (var vino in listaActualizacionesVinos) // Iteramos sobre cada Objeto Vino de la lista que viene de la API
             {
-                if (bodega.tenesEsteVino(vino))
+                if (bodega.tenesEsteVino(vino)) //Si la bodega ya tiene ese vino es para actualizar
                 {
                     vinosParaActualizar.Add(vino);
                 }
-                else
+                else                            // si la bodega no tiene el vino es para crear
                 {
                     vinosParaCrear.Add(vino);
                 }
@@ -262,6 +269,11 @@ namespace PPAI2024
                 mensaje.AppendLine();
                 MessageBox.Show(mensaje.ToString(), "Vinos de la Bodega");
             
+        }
+
+        public List<Vino> obtenerActVinosBodega(InterfazAPIBodega API, Bodega bodegaSelec)
+        {
+            return API.obtenerActVinosBodega(bodegaSelec);
         }
 
 

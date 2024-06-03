@@ -43,7 +43,7 @@ namespace PPAI2024.Entidades
             // Verificar si se ha establecido una fecha de última actualización
             if (fechaUltimaActualizacion == default(DateTime))
             {
-                // Si no se ha establecido, se considera que hay actualizaciones disponibles
+                // Si no se ha establecido, se considera  que nunca tuvo actualizacion por lo tanto hay actualizaciones disponibles
                 return true;
             }
             else
@@ -65,20 +65,28 @@ namespace PPAI2024.Entidades
 
         public bool tenesEsteVino(Vino vino)
         {
-            return Vino.Any(v => v.sosEsteVino(vino));
+            // return Vino.Any(v => v.sosEsteVino(vino));
+            foreach (var v in Vino)
+            {
+                if (v.sosEsteVino(vino))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         
-        public void ActualizarDatosVino(Vino vinoActualizado)
+        public void ActualizarDatosVino(Vino vinoActualizado) //Entra como parametro el vino con los datos Actualizados
         {
-            //Recorremos los vinos de Una bodeg
-            foreach (var vino in vino)
+            
+            foreach (var vino in vino) //Recorre cada vino de la bodega preguntando cual es el que tiene que actualizar
             {
-                if (vino.sosEsteVino(vinoActualizado))
+                if (vino.sosEsteVino(vinoActualizado))  //Aca preguntamos si el vino que tiene la bodega es igual al vino que tenemos los datos actulizados,true= se actualiza
                 {
                     vino.PrecioARS = vinoActualizado.PrecioARS;
                     vino.NotaDeCataBodega = vinoActualizado.NotaDeCataBodega;
                     vino.FechaActualizacion = vinoActualizado.FechaActualizacion; //el vino actualizado viene con la fecha del dia que llamamos a la API
-                    break;
+                    break; //no hace falta seguir recorriendo el resto de vinos de una bodega pq ya encontramos al que hay que actualizarle los datos
                 }
             }
         }
