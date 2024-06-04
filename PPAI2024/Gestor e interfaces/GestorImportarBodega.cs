@@ -109,7 +109,7 @@ namespace PPAI2024
             {
                 bodegaSeleccionada.ActualizarDatosVino(vino);
             }
-            // MostrarVinosACtualizadosDeUnaBodega(bodegaSeleccionada);
+             
         }
 
       
@@ -177,6 +177,8 @@ namespace PPAI2024
             return null;
         }
 
+
+        //Este metodo deberia ir en ActualizarCaracteristicasVinosExistentes() para 
         public void MostrarVinosACtualizadosDeUnaBodega(Bodega bodega)
         {
             StringBuilder mensaje = new StringBuilder();
@@ -206,7 +208,7 @@ namespace PPAI2024
                 if (enofilo.SeguisABodega(bodega)) //le Preguntamos a cada uno si sigue a la bodega seleccionada, si la sigue agregamos 
                                                    // el enofilo a la lista seguidores
                 {
-                    enofilo.GetNombreUsuario();
+                    //enofilo.GetNombreUsuario();
                     seguidores.Add(enofilo);
                 }
             }

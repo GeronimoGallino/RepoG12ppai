@@ -65,8 +65,7 @@ namespace PPAI2024.Entidades
 
         public bool tenesEsteVino(Vino vino)
         {
-            // return Vino.Any(v => v.sosEsteVino(vino));
-            foreach (var v in Vino)
+            foreach (var v in Vino) //Recorremos Los vinos de la bodega y a cada uno le preguntamos si es igual al vino pasado por parametro
             {
                 if (v.sosEsteVino(vino))
                 {
@@ -75,7 +74,7 @@ namespace PPAI2024.Entidades
             }
             return false;
         }
-        
+                        
         public void ActualizarDatosVino(Vino vinoActualizado) //Entra como parametro el vino con los datos Actualizados
         {
             

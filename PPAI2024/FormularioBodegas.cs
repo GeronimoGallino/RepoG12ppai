@@ -157,7 +157,7 @@ namespace PPAI2024
 
         public void opcImportarActVinos()
         {
-            habilitarPantalla();
+            habilitarPantalla();    
         }
 
         public void habilitarPantalla()

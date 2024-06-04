@@ -28,7 +28,7 @@ namespace PPAI2024.Entidades
         public DateTime FechaInicio { get {  return fechaInicio; } set { fechaInicio = value; } }
         public Enofilo Amigo { get { return amigo; } set { amigo = value; } }
         public Bodega Bodega { get {  return bodega; } set {  bodega = value; } }
-
+            
         public bool SosDeBodega(Bodega bodega)
         {
             return this.bodega.Nombre == bodega.Nombre; //retornamos true si el nombre de la bodega que contiene el objeto siguiendo es 
